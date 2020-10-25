@@ -1,55 +1,36 @@
 package com.devsuperior.dscatalog.entities;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_category")
-public class Category implements Serializable {
+@Table(name = "tb_role")
+public class Role implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String name;
+	private String authority;
 	
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private Instant updatedAt;
+	@ManyToMany(mappedBy = "roles")
+	public Set<User> users = new HashSet<>();
 	
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private Instant createdAt;
-	
-	@ManyToMany(mappedBy = "categories")
-	private Set<Product> products = new HashSet<>(); 
-	
-	public Category() {
+	public Role() {
 		
 	}
-	
-	public Category(Long id, String name) {
-		super();
+
+	public Role(Long id, String authority) {
 		this.id = id;
-		this.name = name;
-	}
-
-	public Instant getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public Instant getCreatedAt() {
-		return createdAt;
+		this.authority = authority;
 	}
 
 	public Long getId() {
@@ -60,26 +41,17 @@ public class Category implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getAuthority() {
+		return authority;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setAuthority(String authority) {
+		this.authority = authority;
 	}
 	
-	@PrePersist
-	public void prePersist() {
-		createdAt = Instant.now();
-	}
-
-	@PreUpdate
-	public void preUpdate() {
-		updatedAt = Instant.now();
-	}
-	
-	public Set<Product> getProducts() {
-		return products;
+	@ManyToMany(mappedBy = "roles")
+	public Set<User> getUsers() {
+		return users;
 	}
 
 	@Override
@@ -98,7 +70,7 @@ public class Category implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Category other = (Category) obj;
+		Role other = (Role) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -108,4 +80,5 @@ public class Category implements Serializable {
 	}
 	
 	
+
 }
