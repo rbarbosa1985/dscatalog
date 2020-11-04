@@ -1,3 +1,3 @@
 export type Props = {
-     price: string;
+     price: number;
 }
