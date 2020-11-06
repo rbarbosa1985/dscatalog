@@ -17,14 +17,12 @@ const Catalog = () => {
           makeRequest({ url: '/products' ,  params}).then(response => setProductsResponse(response.data));
      }, [])
 
-     console.log(productsResponse?.content);
-
      return (
           <div className="catalog-container">
                <h1 className="catalog-title">Catálogo de produtos</h1>
                <div className="catalog-products">
                     {productsResponse?.content.map(product => (
-                         <Link to="/products/1" key={product.id}>
+                         <Link to={`/products/${product.id}`} key={product.id}>
                               <ProductCard product={product}/>
                          </Link>
                     ))}
