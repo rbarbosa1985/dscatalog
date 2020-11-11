@@ -52,13 +52,13 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		http.authorizeRequests()
 		.antMatchers(PUBLIC).permitAll()
 		.antMatchers(HttpMethod.GET, (OPERATOR)).permitAll()
-		.antMatchers(OPERATOR).permitAll()
-		.antMatchers(ADMIN).permitAll()
-		.anyRequest().permitAll();
-		/*
+		//.antMatchers(OPERATOR).permitAll()
+		//.antMatchers(ADMIN).permitAll()
+		//.anyRequest().permitAll();
+		
 		.antMatchers(OPERATOR).hasAnyRole("OPERATOR", "ADMIN")
 		.antMatchers(ADMIN).hasAnyRole("ADMIN")
-		.anyRequest().authenticated();*/
+		.anyRequest().authenticated();
 		
 		http.cors().configurationSource(corsConfigurationSource());
 	}
