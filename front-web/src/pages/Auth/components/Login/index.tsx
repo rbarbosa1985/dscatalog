@@ -22,12 +22,29 @@ const Login = () => {
      return (
           <AuthCard title="Login">
                <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
-                    <input type="email" placeholder="Email" 
-                              name="username" ref={register}
-                              className="form-control input-base margin-bottom-30"/>
-                    <input type="password" placeholder="Senha" 
-                              name="password" ref={register}
-                              className="form-control input-base"/>
+                    <div className="margin-bottom-30">
+                         <input type="email" placeholder="Email"
+                                   name="username"
+                                   ref={register({
+                                        required: "Campo Obrigatório.",
+                                        pattern: {
+                                             value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                             message: "Email inválido."
+                                        }
+                                        })}
+                                   className={`form-control input-base ${errors.username ? 'is-invalid' : ''}`}/>
+                         {errors.username && (<div className="invalid-feedback d-block">
+                              {errors.username.message}
+                         </div>)}
+                    </div>
+                    <div className="margin-bottom-30">
+                         <input type="password" placeholder="Senha"
+                                name="password" ref={register({required: "Campo Obrigatório."})}
+                                className={`form-control input-base ${errors.password ? 'is-invalid' : ''}`}/>
+                         {errors.password && (<div className="invalid-feedback d-block">
+                              {errors.password.message}
+                         </div>)}
+                    </div>
                     <Link to="/admin/auth/recover" className="login-link-recover">Esqueci a senha?</Link>
                     <div className="login-submit">
                          <ButtonIcon text="Logar"/>
