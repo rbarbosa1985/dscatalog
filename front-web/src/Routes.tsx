@@ -1,16 +1,17 @@
 import Auth from 'pages/Auth';
 import React from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { Router, Switch, Route, Redirect } from 'react-router-dom';
 import Navbar from './core/components/Navbar';
 import Admin from './pages/Admin';
 import Catalog from './pages/Catalog';
 import ProducDetails from './pages/Catalog/components/ProductDetails';
 import Home from './pages/Home';
 import PrivateRoute from "./core/components/Routes/PrivateRoute";
+import history from "./core/utils/history";
 
 const Routes = () => {
      return (
-          <BrowserRouter>
+          <Router history={history}>
                <Navbar/>
                <Switch>
                     <Route path="/" exact> <Home /> </Route>
@@ -21,7 +22,7 @@ const Routes = () => {
                     <Redirect from="/admin" to="admin/products" exact></Redirect>
                     <PrivateRoute path="/admin" > <Admin /> </PrivateRoute>
                </Switch>
-          </BrowserRouter>
+          </Router>
      )
 }
 

@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import AuthCard from '../Card';
 import './styles.scss';
 import { makeLogin } from 'core/utils/request';
-import {savaSessionData} from "../../../../core/utils/auth";
+import {saveSessionData} from "../../../../core/utils/auth";
 
 type FormData = {
      username: string;
@@ -21,7 +21,7 @@ const Login = () => {
           makeLogin(data)
               .then( response => {
                    setHasError(false);
-                   savaSessionData(response.data);
+                   saveSessionData(response.data);
                    history.push('/admin');
               })
               .catch(() => {setHasError(true);});
