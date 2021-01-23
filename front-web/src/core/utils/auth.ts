@@ -24,17 +24,21 @@ export const saveSessionData = (loginResponse: LoginResponse) => {
 }
 
 export const getSessionData = () => {
-    const sessionData = localStorage.getItem('authData') || '{}';
+    const sessionData = localStorage.getItem('authData') ?? '[]';
     const parsedSessionData = JSON.parse(sessionData);
-
     return parsedSessionData as LoginResponse;
 }
 
 export const getAccessTokenDecode = () => {
     const sessionData = getSessionData();
-    const tokenDecoded = jwtDecode(sessionData.access_token);
 
-    return tokenDecoded as AccessToken;
+    try{
+        const tokenDecoded = jwtDecode(sessionData.access_token);
+        return tokenDecoded as AccessToken;
+    }catch (error) {
+        return {} as AccessToken;
+    }
+
 }
 
 export const isTokenValid = () => {
@@ -58,5 +62,5 @@ export const isAllowedByRole = ( routeRoles: Role[] = []) => {
     const userToken = getAccessTokenDecode();
     const userRoles = userToken.authorities;
 
-    return routeRoles.some(role => userRoles.includes(role));
+    return routeRoles.some(role => userRoles?.includes(role));
 }

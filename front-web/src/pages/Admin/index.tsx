@@ -8,8 +8,8 @@ import PrivateRoute from "../../core/components/Routes/PrivateRoute";
 const Admin = () => {
      return (
           <div className="admin-container">
-               <Navbar />
-               <div className="admin-content">
+              <Navbar />
+              <div className="admin-content">
                     <Switch>
                          <PrivateRoute path="/admin/products"> <Products/> </PrivateRoute>
                          <PrivateRoute path="/admin/categories"><h1>Categories</h1></PrivateRoute>
