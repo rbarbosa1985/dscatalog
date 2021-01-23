@@ -16,9 +16,9 @@ const Auth = () => (
           </div>
           <div className="auth-content">
                <Switch>
-                    <Route path="/admin/auth/login"><Login/></Route>
-                    <Route path="/admin/auth/register"><h1>Cadastro</h1></Route>
-                    <Route path="/admin/auth/recover"><h1>Recuperar</h1></Route>
+                    <Route path="/auth/login"><Login/></Route>
+                    <Route path="/auth/register"><h1>Cadastro</h1></Route>
+                    <Route path="/auth/recover"><h1>Recuperar</h1></Route>
                </Switch>
           </div>
      </div>
