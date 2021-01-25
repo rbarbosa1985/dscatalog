@@ -1,69 +1,77 @@
 import {makePrivateRequest} from 'core/utils/request';
-import React, {useState} from 'react';
+import React from 'react';
 import BaseForm from '../../BaseForm';
 import './styles.scss';
+import {useForm} from "react-hook-form";
 
-type formData ={
+type FormState ={
      name:string;
      price:string;
      category:string;
      description:string;
+     img_URL: string;
 }
-
-type FormEvent = React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>;
 
 const Form = () => {
 
-     const [formData,setFormData] = useState<formData>({
-          name: '',
-          price: '',
-          category: '',
-          description: ''
-     });
+     const { register, handleSubmit, errors } = useForm<FormState>();
 
-
-     const handleOnChange = (event: FormEvent ) => {
-          const name = event.target.name;
-          const value = event.target.value;
-          setFormData(data => ({ ...data, [name]: value}));
-     }
-
-     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-          event.preventDefault();
-          const payload ={
-               ...formData,
-               img_URL: 'https://imagens.canaltech.com.br/produto/1553634067-6565-principal-m.png',
-               categories: [{ id: formData.category}]
-
-          }
-
-          console.log(payload);
-
-          makePrivateRequest({method: 'POST', url:'/products', data:payload}).then(() => {
-               setFormData({
-                    name: '',
-                    price: '',
-                    category: '',
-                    description: ''
-               });
-          });
+     const onSubmit = (data: FormState) => {
+          makePrivateRequest({method: 'POST', url:'/products', data});
      }
 
      return (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit(onSubmit)}>
                <BaseForm title="cadastrar um produto"> 
                     <div className="row">
                          <div className="col-6">
-                              <input type="text" name="name" value={formData.name} className="form-control mb-5" onChange={handleOnChange}/>
-                              <select name="category" value={formData.category} onChange={handleOnChange} className="form-control mb-5">
-                                   <option value="1">Livros</option>
-                                   <option value="3">Computadores</option>
-                                   <option value="2">Eletronicos</option>
-                              </select>
-                              <input name="price" type="text" value={formData.price} className="form-control" onChange={handleOnChange}/>
+                              <div className="margin-bottom-30">
+                                   <input type="text" name="name"
+                                          ref={register({
+                                               required: "Campo Obrigatório.",
+                                               minLength: { value:5, message: 'O nome deve ter no mínimo 5 caracteres.'},
+                                               maxLength: {value: 60, message: 'O nome do produto não pode ter mais de 60 caracteres.'}
+                                          })}
+                                          placeholder="Nome do Produto"
+                                          className="form-control  input-base"
+                                   />
+                                   {errors.name && (
+                                       <div className="invalid-feedback d-block">
+                                            {errors.name.message}
+                                       </div>
+                                   )}
+                              </div>
+                              <div className="margin-bottom-30">
+                                   <select name="category" ref={register({required: "Campo Obrigatório."})} className="form-control ">
+                                        <option value="1">Livros</option>
+                                        <option value="3">Computadores</option>
+                                        <option value="2">Eletronicos</option>
+                                   </select>
+                              </div>
+                              <div className="margin-bottom-30">
+                                   <input name="price" type="number" ref={register({required: "Campo Obrigatório."})} placeholder="Preço do Produto" className="form-control  input-base" />
+                                   {errors.price && (
+                                       <div className="invalid-feedback d-block">
+                                            {errors.price.message}
+                                       </div>
+                                   )}
+                              </div>
+                              <div className="margin-bottom-30">
+                                   <input name="img_URL" type="text" ref={register({required: "Campo Obrigatório."})} placeholder="Url da Imagem" className="form-control  input-base" />
+                                   {errors.img_URL && (
+                                       <div className="invalid-feedback d-block">
+                                            {errors.img_URL.message}
+                                       </div>
+                                   )}
+                              </div>
                          </div>
-                         <div className="col-6">
-                              <textarea name="description" value={formData.description} className="form-control mb-5" onChange={handleOnChange} cols={30} rows={10}/>
+                         <div className="col-6 margin-bottom-30">
+                              <textarea name="description" ref={register({required: "Campo Obrigatório."})} placeholder="Descrição" className="form-control input-base" cols={30} rows={11}/>
+                              {errors.description && (
+                                  <div className="invalid-feedback d-block">
+                                       {errors.description.message}
+                                  </div>
+                              )}
                          </div>
                     </div>
                </BaseForm>
