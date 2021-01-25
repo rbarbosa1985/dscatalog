@@ -2,13 +2,13 @@ import React from "react";
 import './styles.scss';
 import ProductPrice from "../../../../../core/components/ProductPrice";
 import {Product} from "../../../../../core/types/Product";
+import {Link} from "react-router-dom";
 
 type Props ={
     product: Product;
 }
 
 const Card = ({ product } : Props) => {
-    console.log(product)
     return (
         <div className="card-base product-card-admin">
             <div className="row">
@@ -21,7 +21,9 @@ const Card = ({ product } : Props) => {
                     {product.categories.map(category => (<span className="badge badge-pill badge-secondary mr-2">{category.name}</span>))}
                 </div>
                 <div className="col-3 pt-3 pr-5">
-                    <button className="btn btn-outline-secondary btn-edit btn-block border-radius-10 mb-3">EDITAR</button>
+                    <Link to={`/admin/products/${product.id}`} key={product.id} className="btn btn-outline-secondary btn-edit btn-block border-radius-10 mb-3">
+                        EDITAR
+                    </Link>
                     <button className="btn btn-outline-danger btn-block border-radius-10">EXCLUIR</button>
                 </div>
             </div>

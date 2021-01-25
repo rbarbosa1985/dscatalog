@@ -12,7 +12,7 @@ const BaseForm = ({ title, children }: Props) => {
      const history = useHistory();
 
      const handleCancel = () => {
-          history.goBack();
+         history.goBack();
      }
 
      return (
@@ -21,7 +21,7 @@ const BaseForm = ({ title, children }: Props) => {
                {children}
                <div className="base-form-action">
                     <button className="btn btn-outline-danger border-radius-10 mr-3 btn-lg" onClick={handleCancel}>CANCELAR</button>
-                    <button className="btn btn-primary border-radius-10 mr-3 btn-lg">CADASTRAR</button>
+                    <button className="btn btn-primary border-radius-10 mr-3 btn-lg">SALVAR</button>
                </div>
           </div>
      );
