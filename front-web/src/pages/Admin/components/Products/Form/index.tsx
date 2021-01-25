@@ -53,7 +53,7 @@ const Form = () => {
                                    )}
                               </div>
                               <div className="margin-bottom-30">
-                                   <select name="category" ref={register({required: "Campo Obrigatório."})} className="form-control ">
+                                   <select name="category" ref={register({required: "Campo Obrigatório."})} className="form-control input-base">
                                         <option value="1">Livros</option>
                                         <option value="3">Computadores</option>
                                         <option value="2">Eletronicos</option>
