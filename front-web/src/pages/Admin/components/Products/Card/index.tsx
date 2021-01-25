@@ -1,20 +1,24 @@
 import React from "react";
 import './styles.scss';
 import ProductPrice from "../../../../../core/components/ProductPrice";
+import {Product} from "../../../../../core/types/Product";
 
-const Card = () => {
+type Props ={
+    product: Product;
+}
+
+const Card = ({ product } : Props) => {
+    console.log(product)
     return (
         <div className="card-base product-card-admin">
             <div className="row">
-                <div className="col-2 text-center border-right py-3">
-                    <img className="product-card-image-admin" src="https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/3-big.jpg" alt="Produto Teste"/>
+                <div className="product-card-admin-img col-2 text-center border-right py-3">
+                    <img className="product-card-image-admin" src={product.img_URL} alt={product.name}/>
                 </div>
                 <div className="col-7 py-3">
-                    <h3 className="product-card-name-admin">Mac Book Pro 2011</h3>
-                    <ProductPrice price={40.5}/>
-                    <span className="badge badge-pill badge-secondary mr-2">Categoria 1</span>
-                    <span className="badge badge-pill badge-secondary mr-2">Categoria 2</span>
-                    <span className="badge badge-pill badge-secondary mr-2">Categoria 3</span>
+                    <h3 className="product-card-name-admin">{product.name}</h3>
+                    <ProductPrice price={product.price}/>
+                    {product.categories.map(category => (<span className="badge badge-pill badge-secondary mr-2">{category.name}</span>))}
                 </div>
                 <div className="col-3 pt-3 pr-5">
                     <button className="btn btn-outline-secondary btn-edit btn-block border-radius-10 mb-3">EDITAR</button>
