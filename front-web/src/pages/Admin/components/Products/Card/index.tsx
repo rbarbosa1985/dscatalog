@@ -6,9 +6,10 @@ import {Link} from "react-router-dom";
 
 type Props ={
     product: Product;
+    onRemove: (productId: number) => void;
 }
 
-const Card = ({ product } : Props) => {
+const Card = ({ product, onRemove } : Props) => {
     return (
         <div className="card-base product-card-admin">
             <div className="row">
@@ -24,7 +25,7 @@ const Card = ({ product } : Props) => {
                     <Link to={`/admin/products/${product.id}`} key={product.id} className="btn btn-outline-secondary btn-edit btn-block border-radius-10 mb-3">
                         EDITAR
                     </Link>
-                    <button className="btn btn-outline-danger btn-block border-radius-10">EXCLUIR</button>
+                    <button className="btn btn-outline-danger btn-block border-radius-10" onClick={() => onRemove(product.id)}>EXCLUIR</button>
                 </div>
             </div>
 
