@@ -4,8 +4,8 @@ import Card from "../Card";
 import {ProductResponse} from "../../../../../core/types/Product";
 import {makePrivateRequest, makeRequest} from "../../../../../core/utils/request";
 import Pagination from "../../../../../core/components/Pagination";
-import ProductCardLoader from "../../../../Catalog/components/Loaders/ProductCardLoader";
 import {toast} from "react-toastify";
+import CardLoader from "../Loaders/ProductCardLoader";
 
 const List = () => {
 
@@ -52,7 +52,7 @@ const List = () => {
           <div className="admin-products-list">
                <button className="btn btn-primary btn-lg" onClick={handleCreate}>ADICIONAR</button>
                <div className="admin-list-container">
-                   {isLoading ? <ProductCardLoader /> : (
+                   {isLoading ? <CardLoader/> : (
                        productsResponse?.content.map(product => (
                            <Card product={product} key={product.id} onRemove={onRemove}/>
                        ))
