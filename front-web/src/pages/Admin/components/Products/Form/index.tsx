@@ -1,15 +1,17 @@
 import {makePrivateRequest, makeRequest} from 'core/utils/request';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { toast } from 'react-toastify';
+import Select from "react-select";
 import BaseForm from '../../BaseForm';
 import './styles.scss';
-import {useForm} from "react-hook-form";
+import {useForm, Controller} from "react-hook-form";
 import {useHistory, useParams} from "react-router-dom";
+import {Category} from "../../../../../core/types/Product";
 
 type FormState ={
      name:string;
      price:string;
-     category:string;
+     categories:Category[];
      description:string;
      img_URL: string;
 }
@@ -20,9 +22,11 @@ type ParamsType = {
 
 const Form = () => {
 
-     const { register, handleSubmit, errors, setValue } = useForm<FormState>();
+     const { register, handleSubmit, errors, setValue, control } = useForm<FormState>();
      const history = useHistory();
      const { productId } = useParams<ParamsType>();
+     const [isLoadingCategories, setIsLoadingCategories] = useState(false);
+     const [categories, setCategories] = useState<Category[]>([]);
      const isEditing = productId !== 'create';
 
 
@@ -34,9 +38,19 @@ const Form = () => {
                      setValue('price', response.data.price);
                      setValue('description', response.data.description);
                      setValue('img_URL', response.data.img_URL);
+                     setValue('categories', response.data.categories)
                  });
          }
      }, [productId, isEditing, setValue]);
+
+     useEffect(() => {
+         setIsLoadingCategories(true);
+         makeRequest({url: '/categories'})
+             .then(response => {
+                 setCategories(response.data.content);
+             })
+             .finally(() => { setIsLoadingCategories(false) });
+     }, []);
 
      const onSubmit = (data: FormState) => {
          console.log('Oi');
@@ -75,11 +89,24 @@ const Form = () => {
                                    )}
                               </div>
                               <div className="margin-bottom-30">
-                                   <select name="category" ref={register({required: "Campo Obrigatório."})} className="form-control input-base">
-                                        <option value="1">Livros</option>
-                                        <option value="3">Computadores</option>
-                                        <option value="2">Eletronicos</option>
-                                   </select>
+                                  <Controller
+                                      as={Select}
+                                      name="categories"
+                                      rules={{required: true}}
+                                      control={control}
+                                      isLoading={isLoadingCategories}
+                                      options={categories}
+                                      getOptionLabel={(option: Category) => option.name}
+                                      getOptionValue={(option: Category) => String(option.id)}
+                                      isMulti
+                                      classNamePrefix="categories-select"
+                                      placeholder="Categorias"
+                                  />
+                                  {errors.categories && (
+                                      <div className="invalid-feedback d-block">
+                                          Campo Obrigatório.
+                                      </div>
+                                  )}
                               </div>
                               <div className="margin-bottom-30">
                                    <input name="price" type="number" ref={register({required: "Campo Obrigatório."})} placeholder="Preço do Produto" className="form-control  input-base" />
