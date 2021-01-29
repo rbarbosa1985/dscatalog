@@ -1,5 +1,6 @@
 package com.devsuperior.dscatalog.services;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -81,8 +82,9 @@ public class ProductService {
 	}
 
 	@Transactional(readOnly = true)
-	public Page<ProductDTO> findAllPaged(PageRequest pageRequest) {
-		Page<Product> list = repository.findAll(pageRequest);
+	public Page<ProductDTO> findAllPaged(PageRequest pageRequest, Long categoryId, String name) {
+		List<Category> categories = (categoryId == 0) ? null : Arrays.asList(categoryRepository.getOne(categoryId));
+		Page<Product> list = repository.find(categories, name,pageRequest);
 		return list.map(x -> new ProductDTO(x));
 	}
 	
