@@ -18,7 +18,7 @@ const List = () => {
         const params = {
             page : activePage,
             linesPerPage: 4,
-            direction: 'DESC',
+            direction: 'ASC',
             orderBy: 'id'
         }
         setIsLoading(true);

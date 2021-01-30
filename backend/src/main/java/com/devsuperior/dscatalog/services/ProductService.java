@@ -37,13 +37,13 @@ public class ProductService {
 	public List<ProductDTO> findAll() {
 		List<Product> list = repository.findAll();
 		
-		return list.stream().map(x -> new ProductDTO(x)).collect(Collectors.toList());		
+		return list.stream().map(x -> new ProductDTO(x, x.getCategories())).collect(Collectors.toList());		
 	}
 
 	@Transactional(readOnly = true)
 	public ProductDTO findById(Long id) {
 		Optional<Product> obj = repository.findById(id);
-		Product entity = obj.orElseThrow(() -> new EntityNotFoundException("Categoria não encontrada!"));
+		Product entity = obj.orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado!"));
 		return new ProductDTO(entity, entity.getCategories());
 	}
 
@@ -85,7 +85,7 @@ public class ProductService {
 	public Page<ProductDTO> findAllPaged(PageRequest pageRequest, Long categoryId, String name) {
 		List<Category> categories = (categoryId == 0) ? null : Arrays.asList(categoryRepository.getOne(categoryId));
 		Page<Product> list = repository.find(categories, name,pageRequest);
-		return list.map(x -> new ProductDTO(x));
+		return list.map(x -> new ProductDTO(x, x.getCategories()));
 	}
 	
 	private void copyDtoToEntity(ProductDTO dto, Product entity) {
