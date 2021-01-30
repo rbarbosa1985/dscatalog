@@ -6,6 +6,7 @@ import ProductCard from './components/ProductCard';
 import ProductCardLoader from './components/Loaders/ProductCardLoader';
 import './styles.scss';
 import Pagination from 'core/components/Pagination';
+import ProductFilters from 'core/components/ProductFilters';
 
 const Catalog = () => {
 
@@ -25,7 +26,10 @@ const Catalog = () => {
 
      return (
           <div className="catalog-container">
-               <h1 className="catalog-title">Catálogo de produtos</h1>
+               <div className="d-flex justify-content-between">
+                    <h1 className="catalog-title">Catálogo de produtos</h1>
+                    <ProductFilters/>
+               </div>
                <div className="catalog-products">
                     {isLoading ? <ProductCardLoader /> : (
                          productsResponse?.content.map(product => (
