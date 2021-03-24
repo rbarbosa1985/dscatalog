@@ -11,13 +11,13 @@ import history from "./core/utils/history";
 const Routes = () => {
      return (
           <Router history={history}>
-               <Navbar/>
+               <Navbar />
                <Switch>
                     <Route path="/" exact> <Home /> </Route>
-                    <Route path="/products" exact> <Catalog/> </Route>
-                    <Route path="/products/:productId" > <ProducDetails/> </Route>
-                    <Redirect from="/auth" to="/auth/login" exact />
-                    <Route path="/auth" > <Auth/> </Route>
+                    <Route path="/products" exact> <Catalog /> </Route>
+                    <Route path="/products/:productId" > <ProducDetails /> </Route>
+                    <Redirect from="/auth" to="/home/login" exact />
+                    <Route path="/auth" > <Auth /> </Route>
                     <Redirect from="/admin" to="admin/products" exact></Redirect>
                     <Route path="/admin" > <Admin /> </Route>
                </Switch>
