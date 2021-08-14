@@ -4,6 +4,7 @@ const colors = {
      white: "#FFF",
      lightGray: "#f2f2f2",
      mediumGray: "#9e9e9e",
+     borderGray: "#E1E1E1",
      darkGray: "#263238",
      black: "#000",
      primary: "#407BEE",
@@ -48,6 +49,21 @@ const text = {
           fontSize: 30,
           fontWeight: "bold",
           color: colors.primary
+     },
+
+     //Product Details
+     backDetails: {
+          fontSize: 18,
+          fontWeight: "bold",
+          color: colors.darkGray,
+     },
+     productNameDetails: {
+          fontSize: 30,
+          fontWeight: "bold",
+          color: colors.darkGray
+     },
+     productDescription:{
+
      }
 }
 
@@ -56,7 +72,6 @@ const theme = StyleSheet.create ({
           flex: 1,
           justifyContent: "center",
           alignItems: "center",
-
           padding: 20
      },
      card: {
@@ -134,6 +149,94 @@ const theme = StyleSheet.create ({
 
      priceContainer: {
           flexDirection: "row",
+     },
+
+     productImg: {
+          width: 140,
+          height: 140,
+          margin: 16
+     },
+
+     //SearchInput
+     inputContainer: {
+          width: "100%",
+          height: 60,
+          backgroundColor: colors.white,
+          borderRadius: 20,
+          padding: 20,
+          alignItems: "flex-start",
+          justifyContent: "space-around",
+          shadowColor: colors.black,
+          shadowOffset: {
+               width: 0,
+               height: 2,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 3.84,
+          marginVertical: 12.5,
+          paddingVertical: 10,
+     },
+
+     searchInput: {
+          width: "90%",
+          height: 40,
+          borderBottomWidth: 0.5,
+          borderBottomColor: colors.borderGray,
+     },
+
+     //Product Details 
+
+     cardDetail: {
+          width: "100%",
+          height: "100%",
+          backgroundColor: colors.white,
+          borderRadius: 20,
+          padding: 20,
+          shadowColor: colors.black,
+          shadowOffset: {
+               width: 0,
+               height: 2,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 3.84
+     },
+
+     backContainer: {
+          flexDirection: 'row',
+          marginBottom: 10,
+          justifyContent:'flex-start',
+     },
+
+     leftArrow: {
+          marginRight: 16,
+          marginTop: 6,
+     },
+
+     productImgContainer: {
+          borderRadius: 20,
+          borderColor: colors.lightGray,
+          borderStyle: "solid",
+          borderWidth: 0.8,
+          marginBottom: 15,
+          alignItems: 'center',
+     },
+
+     productImgDetail: {
+          width: 220,
+          height: 220,
+          margin: 16
+     },
+
+     productDescriptionDetail:{
+          marginTop: 10,
+          borderRadius: 20,
+          borderColor: colors.lightGray,
+          borderStyle: "solid",
+          borderWidth: 0.8,
+          padding: 20,
+          fontSize: 16,
+          fontWeight: "400",
+          color: colors.mediumGray,
      }
 });
 
