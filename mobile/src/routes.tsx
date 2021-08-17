@@ -1,26 +1,26 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Home, Catalog, ProductDetails } from './pages';
+import { HeaderText, NavBar } from './components';
+import { Home, Catalog, ProductDetails, Login } from './pages';
 import { colors } from './styles';
-import { Text } from 'react-native';
 
 const Stack = createStackNavigator();
 
-const HeaderText = () => <Text>DS Catalog</Text>;
 
 const Routes = () => {
      return (
           <Stack.Navigator screenOptions={{
-               headerTitle: "",
+               headerTitle: " ",
                headerStyle: {
                     backgroundColor: colors.primary,
                },
-               headerTintColor: colors.white,
                headerLeft: () => <HeaderText />,
+               headerRight: () => <NavBar />,
           }}>
                <Stack.Screen name="Home" component={Home} />
                <Stack.Screen name="Catalog" component={Catalog} />
                <Stack.Screen name="ProductDetails" component={ProductDetails} />
+               <Stack.Screen name="Login" component={Login} />
           </Stack.Navigator>
      )
 }

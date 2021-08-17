@@ -1,4 +1,7 @@
-import { StyleSheet } from 'react-native'
+import { Dimensions, StyleSheet } from 'react-native';
+import { block } from 'react-native-reanimated';
+
+const deviceWidth = Dimensions.get('window').width;
 
 const colors = {
      white: "#FFF",
@@ -33,7 +36,9 @@ const text = {
           fontSize: 15,
           fontWeight: "bold",
           marginLeft: 10,
-          marginRight: 10
+          marginRight: 10,
+          width: "70%",
+          textAlign: "center"
      },
      productName: {
           fontSize: 16,
@@ -62,9 +67,15 @@ const text = {
           fontWeight: "bold",
           color: colors.darkGray
      },
-     productDescription:{
 
-     }
+     //Login
+     login: {
+          fontSize: 30,
+          color: colors.black,
+          textTransform: 'uppercase',
+          fontWeight: "400",
+     },
+
 }
 
 const theme = StyleSheet.create ({
@@ -95,21 +106,20 @@ const theme = StyleSheet.create ({
           height: 225,
 
      },
-     textContainer: {
-          
-     },
+
      primaryButton: {
           backgroundColor: colors.primary,
           borderRadius: 10,
           justifyContent: "space-between",
           alignItems: "center",
           flexDirection: "row",
-          height: 50,
+          height: 70,
      },
+
      arrowContainer: {
           backgroundColor: colors.secondary,
           width: 50,
-          height: 50,
+          height: 70,
           borderTopRightRadius: 10,
           borderBottomRightRadius: 10,
           justifyContent: "center",
@@ -158,6 +168,8 @@ const theme = StyleSheet.create ({
      },
 
      //SearchInput
+
+     
      inputContainer: {
           width: "100%",
           height: 60,
@@ -237,7 +249,92 @@ const theme = StyleSheet.create ({
           fontSize: 16,
           fontWeight: "400",
           color: colors.mediumGray,
-     }
+     },
+
+     //Login
+
+     cardLogin:{
+          width: "100%",
+          height: "100%",
+          backgroundColor: colors.white,
+          borderRadius: 20,
+          padding: 20,
+          alignItems: "center",
+          justifyContent: "space-around",
+          shadowColor: colors.black,
+          shadowOffset: {
+               width: 0,
+               height: 2,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 3.84
+     },
+
+     passwordContainer:{
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginVertical: 25,
+          borderWidth: 1,
+          borderRadius: 10,
+          // padding: 10,
+          borderColor: colors.mediumGray,
+          
+     },
+     
+     textInput: {
+          width: Dimensions.get('window').width-120,
+          height: 50,
+          padding: 10,
+     },
+
+     textInput1: {
+          width: Dimensions.get('window').width-80,
+          height: 50,
+          padding: 10,
+          borderWidth: 1,
+          borderRadius: 10,
+          borderColor: colors.mediumGray,
+     },
+
+     toggle:{
+          marginRight: 10,
+          width: 20,
+          height: 20
+     },
+
 });
 
-export {colors, theme, text};
+const nav = StyleSheet.create({
+     leftText:{
+          color: colors.white,
+          fontWeight: 'bold',
+          marginLeft: 20,
+     },
+
+     drawer: {
+          marginRight: 20,
+     },
+     
+     options:{
+          width: deviceWidth,
+          backgroundColor: colors.primary,
+          marginTop: 159,
+          marginRight: -20,
+     },
+     option:{
+          padding: 20,
+     },
+
+     textOption:{
+          color: colors.mediumGray,
+          textTransform: 'uppercase',
+     },
+
+     textActive: {
+          fontWeight: 'bold',
+          color: colors.white,
+     }
+     
+});
+
+export {colors, theme, text, nav};
